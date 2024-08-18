@@ -37,3 +37,13 @@ def register(request):
         form = UserCreationForm()
     return render(request, 'relationship_app/register.html', {'form': form})
 
+
+# relationship_app/views.py
+
+from django.shortcuts import render
+from .models import Book
+
+def list_books(request):
+    books = Book.objects.all()  # Fetch all books from the database
+    return render(request, 'relationship_app/list_books.html', {'books': books})
+
