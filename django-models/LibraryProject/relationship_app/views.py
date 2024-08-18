@@ -1,9 +1,8 @@
 from django.shortcuts import render
 # relationship_app/views.py
 from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView
 from .models import Library
-
+from django.views.generic.detail import DetailView
 # Create your views here.
 
 from django.shortcuts import render
@@ -14,6 +13,7 @@ def list_books(request):
     return render(request, 'relationship_app/list_books.html', {'books': books})
 
 
+# relationship_app/views.py
 # relationship_app/views.py
 class LibraryDetailView(DetailView):
     model = Library
