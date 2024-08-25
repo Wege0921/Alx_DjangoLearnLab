@@ -115,6 +115,23 @@ USE_I18N = True
 
 USE_TZ = True
 
+# settings.py
+
+# Enable browser's XSS protection and enforce it
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevent the site from being displayed in an iframe to avoid clickjacking
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent the browser from guessing the content type and force it to follow the declared content type
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensure that the CSRF cookie is only sent over HTTPS
+CSRF_COOKIE_SECURE = True
+
+# Ensure that the session cookie is only sent over HTTPS
+SESSION_COOKIE_SECURE = True
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
