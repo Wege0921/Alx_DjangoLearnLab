@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Book
+from .forms import ExampleForm
 
 @permission_required('bookshelf.can_view', raise_exception=True)
 def book_list(request):
@@ -36,3 +37,13 @@ def book_delete(request, book_id):
     return redirect('book_list')
 
 # Create your views here.
+
+
+
+def example_view(request):
+    form = ExampleForm(request.POST or None)
+    if form.is_valid():
+        # Process the form data
+        pass
+    return render(request, 'template_name.html', {'form': form})
+
