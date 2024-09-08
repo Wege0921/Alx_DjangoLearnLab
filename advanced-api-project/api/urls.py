@@ -14,7 +14,8 @@ urlpatterns = [
     path('books/delete/', views.BookDeleteView.as_view(), name='book-delete'),  # Delete a book
     path('books/update/', views.BookUpdateView.as_view(), name='book-update'),  # Update an existing book
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),  # This includes the URLs from the `api` app
+    path('api/', include('api.urls')),  # This includes the URLs from the `api` api
+    path('books/', BookListView.as_view(), name='book-list'),
     path('books/', BookListView.as_view(), name='book-list'),
 
 ]
