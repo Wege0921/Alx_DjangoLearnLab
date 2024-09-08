@@ -9,6 +9,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import OrderingFilter
 
 from django_filters import rest_framework
+from rest_framework.filters import SearchFilter, OrderingFilter  # Import OrderingFilter
 
 # ListView: Retrieve all books
 class BookListView(generics.ListAPIView):
