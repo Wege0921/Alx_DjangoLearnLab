@@ -1,3 +1,5 @@
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
+
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
