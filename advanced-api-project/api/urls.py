@@ -2,6 +2,7 @@ from django.urls import path
 from .views import BookListView, BookDetailView, BookCreateView, BookUpdateView, BookDeleteView
 from django.contrib import admin
 from django.urls import path, include
+from .views import BookListView
 
 urlpatterns = [
     path('books/', views.BookListView.as_view(), name='book-list'),  # List all books
