@@ -85,6 +85,18 @@ TEMPLATES = [
 
 
 
+# settings.py
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',  # Or 'django.db.backends.mysql' for MySQL, etc.
+        'NAME': BASE_DIR / 'db.postgresql',  # Replace with your database name
+        'USER': 'admin',  # Replace with your database user
+        'PASSWORD': 'admin',  # Replace with your password
+        'HOST': 'localhost',  # Or the remote host IP/URL
+        'PORT': '5432',  # Default PostgreSQL port, or replace with the appropriate port for your database
+    }
+}
 
 
 
