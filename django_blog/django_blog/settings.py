@@ -106,6 +106,14 @@ STATICFILES_DIRS = [
     BASE_DIR / 'blog/static',  # Make sure the directory exists
 ]
 
+# django_blog/settings.py
+
+TEMPLATES = [
+    {
+        'DIRS': [BASE_DIR / 'blog/templates'],
+        # Make sure 'blog/templates' directory exists
+    },
+]
 
 
 
