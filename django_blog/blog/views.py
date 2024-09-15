@@ -198,3 +198,73 @@ def delete_comment(request, pk):
         return redirect('post_detail', pk=post_id)
     return redirect('post_detail', pk=comment.post.pk)
 
+
+
+
+
+# blog/views.py
+
+from django.shortcuts import get_object_or_404, redirect
+from django.views.generic import DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .models import Post, Comment
+from .forms import CommentForm
+
+# Other existing views...
+
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/add_comment.html'
+    
+    def form_valid(self, form):
+        form.instance.post = get_object_or_404(Post, pk=self.kwargs['post_id'])
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+    
+    def get_success_url(self):
+        return redirect('post_detail', pk=self.kwargs['post_id'])
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'blog/edit_comment.html'
+    
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+    
+    def get_success_url(self):
+        return redirect('post_detail', pk=self.object.post.pk)
+
+class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Comment
+    template_name = 'blog/delete_comment.html'
+    
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author
+    
+    def get_success_url(self):
+        return redirect('post_detail', pk=self.object.post.pk)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

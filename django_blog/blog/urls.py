@@ -5,6 +5,34 @@ from . import views
 
 
 # blog/urls.py
+
+from django.urls import path
+from .views import (
+    post_list,
+    post_detail,
+    post_create,
+    post_update,
+    post_delete,
+    CommentCreateView,
+    CommentUpdateView,
+    CommentDeleteView
+)
+
+urlpatterns = [
+    path('', post_list, name='post_list'),
+    path('post/<int:pk>/', post_detail, name='post_detail'),
+    path('post/new/', post_create, name='post_create'),
+    path('post/<int:pk>/edit/', post_update, name='post_update'),
+    path('post/<int:pk>/delete/', post_delete, name='post_delete'),
+    path('post/<int:post_id>/comments/new/', CommentCreateView.as_view(), name='add_comment'),
+    path('comment/<int:pk>/edit/', CommentUpdateView.as_view(), name='edit_comment'),
+    path('comment/<int:pk>/delete/', CommentDeleteView.as_view(), name='delete_comment'),
+]
+
+
+
+
+# blog/urls.py
 from django.urls import path
 from .views import (
     PostListView, PostDetailView, PostCreateView,
