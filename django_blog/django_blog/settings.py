@@ -99,6 +99,12 @@ DATABASES = {
 }
 
 
+# django_blog/settings.py
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'blog/static',  # Make sure the directory exists
+]
 
 
 
