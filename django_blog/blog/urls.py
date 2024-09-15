@@ -12,6 +12,27 @@ from .views import (
     logout_view, register, profile
 )
 
+# blog/urls.py
+from django.urls import path
+from .views import (
+    PostListView, PostDetailView, PostCreateView,
+    PostUpdateView, PostDeleteView, login_view,
+    logout_view, register, profile
+)
+
+urlpatterns = [
+    path('', PostListView.as_view(), name='post_list'),
+    path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
+    path('post/new/', PostCreateView.as_view(), name='post_create'),
+    path('post/<int:pk>/edit/', PostUpdateView.as_view(), name='post_update'),  # Add this line
+    path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post_delete'),
+    path('login/', login_view, name='login'),
+    path('logout/', logout_view, name='logout'),
+    path('register/', register, name='register'),
+    path('profile/', profile, name='profile'),
+]
+
+
 urlpatterns = [
     path('', PostListView.as_view(), name='post_list'),
     path('post/<int:pk>/', PostDetailView.as_view(), name='post_detail'),
