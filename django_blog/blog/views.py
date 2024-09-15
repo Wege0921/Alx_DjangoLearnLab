@@ -1,3 +1,50 @@
+# blog/views.py
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import get_user_model
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from .forms import CustomUserCreationForm
+from .models import Post  # Assuming you have a Post model
+
+User = get_user_model()
+
+
+# blog/views.py
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'blog/post_list.html'
+    context_object_name = 'posts'
+# blog/views.py
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'blog/post_detail.html'
+    context_object_name = 'post'
+# blog/views.py
+
+class PostCreateView(CreateView):
+    model = Post
+    template_name = 'blog/post_form.html'
+    fields = ['title', 'content']
+# blog/views.py
+
+class PostUpdateView(UpdateView):
+    model = Post
+    template_name = 'blog/post_form.html'
+    fields = ['title', 'content']
+# blog/views.py
+
+class PostDeleteView(DeleteView):
+    model = Post
+    template_name = 'blog/post_confirm_delete.html'
+    success_url = '/'  # Redirect to the home page or another page after deletion
+
+
+
+
 from django.shortcuts import render
 from django.contrib import messages
 
