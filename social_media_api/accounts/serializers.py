@@ -52,4 +52,12 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
 
         return user
+from rest_framework import serializers
+from .models import CustomUser
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'following', 'followers']
+        depth = 1  # Show detailed follow information
 
