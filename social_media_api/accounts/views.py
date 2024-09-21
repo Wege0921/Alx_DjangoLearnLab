@@ -11,13 +11,20 @@ from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
 from .serializers import UserSerializer, RegisterSerializer
 
+from rest_framework import generics
+from .serializers import RegisterSerializer, UserSerializer
+from .models import CustomUser
+
 class RegisterView(generics.CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = RegisterSerializer
 
-class LoginView(ObtainAuthToken):
-    def post(self, request, *args, **kwargs):
-        response = super(LoginView, self).post(request, *args, **kwargs)
-        token = Token.objects.get(user=request.user)
-        return Response({'token': token.key})
+class LoginView(generics.GenericAPIView):
+    # Login logic here
+    pass
+
+class ProfileView(generics.RetrieveUpdateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer
+    # You can add permissions here to restrict access to authenticated users only
 
