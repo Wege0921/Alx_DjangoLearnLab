@@ -169,3 +169,18 @@ Make sure to update the `AUTH_USER_MODEL` in `settings.py`:
 ```python
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
+
+
+## API Endpoints
+
+### Posts
+- `GET /api/posts/`: List all posts.
+- `POST /api/posts/`: Create a new post (requires authentication).
+- `GET /api/posts/{id}/`: Retrieve a specific post.
+- `PUT /api/posts/{id}/`: Update a post (owner only).
+- `DELETE /api/posts/{id}/`: Delete a post (owner only).
+
+### Comments
+- `GET /api/comments/`: List all comments.
+- `POST /api/comments/`: Create a new comment (requires authentication).
+
