@@ -15,6 +15,10 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 from pathlib import Path
+import os
+
+# Define the port, defaulting to 8000 if the environment variable is not set
+PORT = os.getenv('PORT', 8000)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
