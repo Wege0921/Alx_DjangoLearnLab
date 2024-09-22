@@ -58,6 +58,7 @@ class FeedView(generics.ListAPIView):
 
         # Filter posts by the users the current user is following and order by creation date
         return Post.objects.filter(author__in=following_users).order_by('-created_at')
+from django.shortcuts import get_object_or_404
 
 
 @login_required
