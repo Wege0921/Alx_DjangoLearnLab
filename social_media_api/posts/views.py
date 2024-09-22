@@ -98,3 +98,48 @@ def follow_user(request, user_id):
         target=user_to_follow
     )
     return redirect('user-profile', user_id=user_id)
+
+
+
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
+from django.views.generic import DetailView, RedirectView
+from .models import Post, Like
+from notifications.models import Notification
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'posts/post_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = self.get_object()
+        user = self.request.user
+        context['liked'] = Like.objects.filter(user=user, post=post).exists()
+        return context
+
+class LikePostView(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        like, created = Like.objects.get_or_create(user=self.request.user, post=post)
+
+        if created:
+            # Generate a notification for the post author
+            Notification.objects.create(
+                recipient=post.author,
+                actor=self.request.user,
+                verb='liked',
+                target=post
+            )
+        return reverse('post-detail', kwargs={'pk': post.pk})
+
+class UnlikePostView(LoginRequiredMixin, RedirectView):
+    def get_redirect_url(self, *args, **kwargs):
+        post = get_object_or_404(Post, pk=self.kwargs['pk'])
+        like = Like.objects.filter(user=self.request.user, post=post).first()
+
+        if like:
+            like.delete()
+        return reverse('post-detail', kwargs={'pk': post.pk})
+
